@@ -57,10 +57,18 @@ namespace PatternMaker {
             image = new Bitmap(width, height);
             Graphics.FromImage(image).Clear(color);
 
+            // Calculate control size
+            CalculateControlSize();
+
             // Set component style options for double buffering
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.UserPaint, true);
+        }
+
+        private void CalculateControlSize() {
+            Width = width * cellWidth + width + 1;
+            Height = height * cellHeight + height + 1;
         }
 
         /// <summary>
@@ -92,7 +100,7 @@ namespace PatternMaker {
         /// </summary>
         public int PatternWidth {
             get { return width; }
-            set { width = value; }
+            set { width = value; CalculateControlSize(); }
         }
 
         /// <summary>
@@ -100,7 +108,7 @@ namespace PatternMaker {
         /// </summary>
         public int PatternHeight {
             get { return height; }
-            set { height = value; }
+            set { height = value; CalculateControlSize(); }
         }
 
         /// <summary>
@@ -108,7 +116,7 @@ namespace PatternMaker {
         /// </summary>
         public int CellWidth {
             get { return cellWidth; }
-            set { cellHeight = value; }
+            set { cellHeight = value; CalculateControlSize(); }
         }
 
         /// <summary>
@@ -116,7 +124,7 @@ namespace PatternMaker {
         /// </summary>
         public int CellHeight {
             get { return cellHeight; }
-            set { cellHeight = value; }
+            set { cellHeight = value; CalculateControlSize(); }
         }
 
         /// <summary>
@@ -125,7 +133,17 @@ namespace PatternMaker {
         /// </summary>
         public Bitmap Image {
             get { return image; }
-            set { image = new Bitmap(value); }
+            set {
+                // Copy image bitmap
+                image = new Bitmap(value);
+
+                // Set width and height of pattern
+                width = image.Width;
+                height = image.Height;
+
+                // Calculate control size
+                CalculateControlSize();
+            }
         }
 
         /// <summary>
