@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PatternMaker {
@@ -12,10 +13,18 @@ namespace PatternMaker {
 
         // The highlight enable/disable flag.
         private bool highlightEnabled = false;
-        // The coordinates of the rectangle of the highlight area.
-        private Rectangle highlightArea;
+        // The coordinates of the highlight area
+        private Point highlightStart, highlightEnd;
         // The color of the highlight area.
         private Color highlightColor;
+
+        /// <summary>
+        /// Create a new pattern with a default size of 20x20 cells, each initialized
+        /// to white and 10x10 pixels in size.
+        /// </summary>
+        public Pattern()
+            : this(20, 20) {
+        }
 
         /// <summary>
         /// Create a new pattern with the given width and height. The default initial color of
@@ -93,6 +102,27 @@ namespace PatternMaker {
                         cellHeight);
                 }
             }
+
+            // Paint highlight if enabled
+            if(highlightEnabled) {
+                Brush highlight = new SolidBrush(highlightColor);
+
+                // Calculate bounds of highlight area
+                int top = Math.Min(highlightStart.Y, highlightEnd.Y);
+                int bottom = Math.Max(highlightStart.Y, highlightEnd.Y);
+                int left = Math.Min(highlightStart.X, highlightEnd.X);
+                int right = Math.Max(highlightStart.X, highlightEnd.X);
+
+                for(int y = top; y <= bottom; y++) {
+                    for(int x = left; x <= right; x++) {
+                        e.Graphics.FillRectangle(highlight,
+                            x * cellWidth + x + 1,
+                            y * cellHeight + y + 1,
+                            cellWidth,
+                            cellHeight);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -153,8 +183,8 @@ namespace PatternMaker {
         /// <param name="y">The starting y coordinate of the highlight.</param>
         /// <param name="color">The color for the highlight.</param>
         public void StartHighlight(int x, int y, Color color) {
-            // Set up the highlight rectangle and color
-            highlightArea = new Rectangle(x, y, 0, 0);
+            // Set up the highlight area and color
+            highlightStart = highlightEnd = new Point(x, y);
             highlightColor = color;
 
             // Enable the highlight
@@ -168,18 +198,24 @@ namespace PatternMaker {
         /// <param name="x">The ending x coordinate for the highlight.</param>
         /// <param name="y">The ending y coordinate for the highlight.</param>
         public void UpdateHighlight(int x, int y) {
-            // Update the width and height of the highlight area
-            highlightArea.Width = x - highlightArea.X;
-            highlightArea.Height = y - highlightArea.Y;
+            // Update the highlight area
+            highlightEnd.X = x;
+            highlightEnd.Y = y;
         }
 
         /// <summary>
         /// Finish editing the highlight and paint the highlight area into the pattern.
         /// </summary>
         public void EndHighlight() {
+            // Calculate bounds of highlight area
+            int top = Math.Min(highlightStart.Y, highlightEnd.Y);
+            int bottom = Math.Max(highlightStart.Y, highlightEnd.Y);
+            int left = Math.Min(highlightStart.X, highlightEnd.X);
+            int right = Math.Max(highlightStart.X, highlightEnd.X);
+
             // Color all cells within the highlight area
-            for(int y = highlightArea.Top; y <= highlightArea.Bottom; y++) {
-                for(int x = highlightArea.Left; x <= highlightArea.Right; x++) {
+            for(int y = top; y <= bottom; y++) {
+                for(int x = left; x <= right; x++) {
                     image.SetPixel(x, y, highlightColor);
                 }
             }
@@ -210,6 +246,18 @@ namespace PatternMaker {
 
             // Call base handler with modified coordinates
             base.OnMouseUp(new MouseEventArgs(e.Button, e.Clicks, x, y, e.Delta));
+        }
+
+        /// <summary>
+        /// Modified OnMouseMove handler to use pattern coordinates.
+        /// </summary>
+        protected override void OnMouseMove(MouseEventArgs e) {
+            // Calculate coordinates within the pattern
+            int x = (e.X - 1) / (cellWidth + 1);
+            int y = (e.Y - 1) / (cellWidth + 1);
+
+            // Call base handler with modified coordinates
+            base.OnMouseMove(new MouseEventArgs(e.Button, e.Clicks, x, y, e.Delta));
         }
     }
 }

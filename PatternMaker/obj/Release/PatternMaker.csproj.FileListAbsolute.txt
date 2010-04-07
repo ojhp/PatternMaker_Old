@@ -1,2 +1,0 @@
-C:\Users\Owen\AppData\Local\Temporary Projects\PatternMaker\obj\Release\ResolveAssemblyReference.cache
-C:\Users\Owen\Documents\Visual Studio 2008\Projects\PatternMaker\PatternMaker\obj\Release\ResolveAssemblyReference.cache
