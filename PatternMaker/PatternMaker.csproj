@@ -39,15 +39,22 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="ColorBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ColorDisplay.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ColorPalette.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ColorPalette.Designer.cs">
+      <DependentUpon>ColorPalette.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pattern.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="PatternMaker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -57,8 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
+    <EmbeddedResource Include="ColorPalette.resx">
+      <DependentUpon>ColorPalette.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
