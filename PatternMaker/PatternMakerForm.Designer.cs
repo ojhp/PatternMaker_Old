@@ -33,6 +33,9 @@
             this.fileSaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.fileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.patternMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.patternSize = new System.Windows.Forms.ToolStripMenuItem();
+            this.patternCellSize = new System.Windows.Forms.ToolStripMenuItem();
             this.pattern = new PatternMaker.Pattern();
             this.colorPalette1 = new PatternMaker.ColorPalette();
             this.panel1.SuspendLayout();
@@ -55,7 +58,8 @@
             // menu
             // 
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileMenu});
+            this.fileMenu,
+            this.patternMenu});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(584, 24);
@@ -78,42 +82,65 @@
             // fileNew
             // 
             this.fileNew.Name = "fileNew";
-            this.fileNew.Size = new System.Drawing.Size(152, 22);
+            this.fileNew.Size = new System.Drawing.Size(123, 22);
             this.fileNew.Text = "&New...";
             this.fileNew.Click += new System.EventHandler(this.fileNew_Click);
             // 
             // fileOpen
             // 
             this.fileOpen.Name = "fileOpen";
-            this.fileOpen.Size = new System.Drawing.Size(152, 22);
+            this.fileOpen.Size = new System.Drawing.Size(123, 22);
             this.fileOpen.Text = "&Open...";
             this.fileOpen.Click += new System.EventHandler(this.fileOpen_Click);
             // 
             // fileSave
             // 
             this.fileSave.Name = "fileSave";
-            this.fileSave.Size = new System.Drawing.Size(152, 22);
+            this.fileSave.Size = new System.Drawing.Size(123, 22);
             this.fileSave.Text = "&Save";
             this.fileSave.Click += new System.EventHandler(this.fileSave_Click);
             // 
             // fileSaveAs
             // 
             this.fileSaveAs.Name = "fileSaveAs";
-            this.fileSaveAs.Size = new System.Drawing.Size(152, 22);
+            this.fileSaveAs.Size = new System.Drawing.Size(123, 22);
             this.fileSaveAs.Text = "Save &As...";
             this.fileSaveAs.Click += new System.EventHandler(this.fileSaveAs_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 6);
             // 
             // fileExit
             // 
             this.fileExit.Name = "fileExit";
-            this.fileExit.Size = new System.Drawing.Size(152, 22);
+            this.fileExit.Size = new System.Drawing.Size(123, 22);
             this.fileExit.Text = "E&xit";
             this.fileExit.Click += new System.EventHandler(this.fileExit_Click);
+            // 
+            // patternMenu
+            // 
+            this.patternMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.patternSize,
+            this.patternCellSize});
+            this.patternMenu.Name = "patternMenu";
+            this.patternMenu.Size = new System.Drawing.Size(57, 20);
+            this.patternMenu.Text = "&Pattern";
+            // 
+            // patternSize
+            // 
+            this.patternSize.Name = "patternSize";
+            this.patternSize.Size = new System.Drawing.Size(152, 22);
+            this.patternSize.Text = "&Size...";
+            this.patternSize.Click += new System.EventHandler(this.patternSize_Click);
+            // 
+            // patternCellSize
+            // 
+            this.patternCellSize.Name = "patternCellSize";
+            this.patternCellSize.Size = new System.Drawing.Size(152, 22);
+            this.patternCellSize.Text = "&Cell Size...";
+            this.patternCellSize.Click += new System.EventHandler(this.patternCellSize_Click);
             // 
             // pattern
             // 
@@ -172,5 +199,8 @@
         private System.Windows.Forms.ToolStripMenuItem fileSaveAs;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fileExit;
+        private System.Windows.Forms.ToolStripMenuItem patternMenu;
+        private System.Windows.Forms.ToolStripMenuItem patternSize;
+        private System.Windows.Forms.ToolStripMenuItem patternCellSize;
     }
 }

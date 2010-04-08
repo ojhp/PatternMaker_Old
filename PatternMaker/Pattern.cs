@@ -84,6 +84,22 @@ namespace PatternMaker {
         }
 
         /// <summary>
+        /// Resize the image to match the current width and height
+        /// </summary>
+        private void ResizeImage() {
+            // Create new image and get graphics
+            Bitmap newImage = new Bitmap(width, height);
+            Graphics g = Graphics.FromImage(newImage);
+
+            // Clear and draw old image into new image
+            g.Clear(Color.White);
+            g.DrawImage(image, 0, 0);
+
+            // Switch images
+            image = newImage;
+        }
+
+        /// <summary>
         /// Paint the pattern onto the control.
         /// </summary>
         protected override void OnPaint(PaintEventArgs e) {
@@ -135,7 +151,11 @@ namespace PatternMaker {
         /// </summary>
         public int PatternWidth {
             get { return width; }
-            set { width = value; CalculateControlSize(); }
+            set {
+                width = value;
+                ResizeImage();
+                CalculateControlSize();
+            }
         }
 
         /// <summary>
@@ -143,7 +163,11 @@ namespace PatternMaker {
         /// </summary>
         public int PatternHeight {
             get { return height; }
-            set { height = value; CalculateControlSize(); }
+            set {
+                height = value;
+                ResizeImage();
+                CalculateControlSize();
+            }
         }
 
         /// <summary>
@@ -151,7 +175,7 @@ namespace PatternMaker {
         /// </summary>
         public int CellWidth {
             get { return cellWidth; }
-            set { cellHeight = value; CalculateControlSize(); }
+            set { cellWidth = value; CalculateControlSize(); }
         }
 
         /// <summary>
@@ -218,6 +242,12 @@ namespace PatternMaker {
             int left = Math.Min(highlightStart.X, highlightEnd.X);
             int right = Math.Max(highlightStart.X, highlightEnd.X);
 
+            // Limit bounds
+            top = Math.Max(top, 0);
+            bottom = Math.Min(bottom, height - 1);
+            left = Math.Max(left, 0);
+            right = Math.Min(right, width - 1);
+
             // Color all cells within the highlight area
             for(int y = top; y <= bottom; y++) {
                 for(int x = left; x <= right; x++) {
@@ -259,7 +289,7 @@ namespace PatternMaker {
         protected override void OnMouseMove(MouseEventArgs e) {
             // Calculate coordinates within the pattern
             int x = (e.X - 1) / (cellWidth + 1);
-            int y = (e.Y - 1) / (cellWidth + 1);
+            int y = (e.Y - 1) / (cellHeight + 1);
 
             // Call base handler with modified coordinates
             base.OnMouseMove(new MouseEventArgs(e.Button, e.Clicks, x, y, e.Delta));

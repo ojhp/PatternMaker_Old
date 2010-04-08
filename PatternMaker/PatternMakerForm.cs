@@ -244,5 +244,44 @@ namespace PatternMaker {
                 SetTitle();
             }
         }
+
+        private void patternSize_Click(object sender, EventArgs e) {
+            // Show size dialog and get result
+            SizeDialog sd = new SizeDialog();
+            sd.Width = pattern.PatternWidth;
+            sd.Height = pattern.PatternHeight;
+            sd.Text = "Pattern Size";
+            DialogResult result = sd.ShowDialog(this);
+
+            if(result == DialogResult.OK) {
+                // If result is OK, change pattern size
+                pattern.PatternWidth = sd.Width;
+                pattern.PatternHeight = sd.Height;
+
+                // Update title
+                SetTitle();
+
+                // Redraw control
+                pattern.Refresh();
+            }
+        }
+
+        private void patternCellSize_Click(object sender, EventArgs e) {
+            // Create and show size dialog
+            SizeDialog sd = new SizeDialog();
+            sd.Width = pattern.CellWidth;
+            sd.Height = pattern.CellHeight;
+            sd.Text = "Cell Size";
+            DialogResult result = sd.ShowDialog(this);
+
+            if(result == DialogResult.OK) {
+                // If result is OK, change cell size
+                pattern.CellWidth = sd.Width;
+                pattern.CellHeight = sd.Height;
+
+                // Redraw control
+                pattern.Refresh();
+            }
+        }
     }
 }
