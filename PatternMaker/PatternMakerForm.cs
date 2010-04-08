@@ -85,6 +85,164 @@ namespace PatternMaker {
             // Finish highlight and update control.
             pattern.EndHighlight();
             pattern.Refresh();
+
+            // Set change flag
+            changed = true;
+        }
+
+        private void fileSaveAs_Click(object sender, EventArgs e) {
+            // Create and set up save file dialog
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.AddExtension = true;
+            sfd.Filter = "Pattern File|*.pat";
+            sfd.Title = "Save Pattern";
+
+            // Show dialog and save if a file is chosen
+            DialogResult result = sfd.ShowDialog(this);
+            if(result == DialogResult.OK) {
+                // Save image file
+                pattern.Image.Save(sfd.FileName);
+
+                // Clear changed flag and set filename
+                changed = false;
+                filename = sfd.FileName;
+
+                // Update title
+                SetTitle();
+            }
+        }
+
+        private void fileSave_Click(object sender, EventArgs e) {
+            if(filename == null) {
+                // If file has not been saved, handle as a save as
+                fileSaveAs_Click(sender, e);
+            } else {
+                // Otherwise save image file
+                pattern.Image.Save(filename);
+
+                // Clear changed flag
+                changed = false;
+            }
+        }
+
+        private void fileExit_Click(object sender, EventArgs e) {
+            Close();
+        }
+
+        private void PatternMakerForm_FormClosing(object sender, FormClosingEventArgs e) {
+            if(changed) {
+                // If changed since last save ask to save changes
+                DialogResult result = MessageBox.Show(this,
+                    "Do you want to save changes before exiting?",
+                    "Save Changes",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                // Handle response
+                switch(result) {
+                    case DialogResult.Yes:
+                        // Try saving
+                        fileSave_Click(sender, e);
+                        // If no saved, cancel closing
+                        if(changed) e.Cancel = true;
+                        break;
+                    case DialogResult.Cancel:
+                        // Cancel closing
+                        e.Cancel = true;
+                        break;
+                }
+            }
+        }
+
+        private void fileOpen_Click(object sender, EventArgs e) {
+            if(changed) {
+                // If changed since last save ask to save changes
+                DialogResult result = MessageBox.Show(this,
+                    "Do you want to save changes before opening a new file?",
+                    "Save Changes",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                // Handle response
+                switch(result) {
+                    case DialogResult.Yes:
+                        // Try saving
+                        fileSave_Click(sender, e);
+                        // If not saved, cancel open
+                        if(changed) return;
+                        break;
+                    case DialogResult.Cancel:
+                        return;
+                }
+            }
+
+            // Show open file dialog
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Pattern File|*.pat";
+            ofd.Multiselect = false;
+            ofd.Title = "Open Pattern";
+            DialogResult result2 = ofd.ShowDialog(this);
+
+            // If file was chosen, load new image
+            if(result2 == DialogResult.OK) {
+                // Load image into pattern
+                pattern.Image = (Bitmap) Bitmap.FromFile(ofd.FileName);
+
+                // Set filename and changed flag
+                filename = ofd.FileName;
+                changed = false;
+                
+                // Refresh control and update form title
+                pattern.Refresh();
+                SetTitle();
+            }
+        }
+
+        private void fileNew_Click(object sender, EventArgs e) {
+            if(changed) {
+                // If changed since last save ask to save changes
+                DialogResult result = MessageBox.Show(this,
+                    "Do you want to save changes before opening a new file?",
+                    "Save Changes",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+
+                // Handle response
+                switch(result) {
+                    case DialogResult.Yes:
+                        // Try saving
+                        fileSave_Click(sender, e);
+                        // If not saved, cancel open
+                        if(changed) return;
+                        break;
+                    case DialogResult.Cancel:
+                        return;
+                }
+            }
+
+            // Show size dialog and get result
+            SizeDialog sd = new SizeDialog();
+            sd.Text = "New Pattern";
+            DialogResult result2 = sd.ShowDialog(this);
+
+            if(result2 == DialogResult.OK) {
+                // Create image for new pattern
+                Bitmap bmp = new Bitmap(sd.Width, sd.Height);
+                for(int y = 0; y < bmp.Height; y++) {
+                    for(int x = 0; x < bmp.Width; x++) {
+                        bmp.SetPixel(x, y, Color.White);
+                    }
+                }
+
+                // Set filename and changed flag
+                filename = null;
+                changed = false;
+
+                // Set pattern image, refresh control and set form title
+                pattern.Image = bmp;
+                pattern.Refresh();
+                SetTitle();
+            }
         }
     }
 }

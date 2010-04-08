@@ -25,10 +25,18 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatternMakerForm));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pattern = new PatternMaker.Pattern();
             this.menu = new System.Windows.Forms.MenuStrip();
+            this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.fileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.pattern = new PatternMaker.Pattern();
             this.colorPalette1 = new PatternMaker.ColorPalette();
             this.panel1.SuspendLayout();
+            this.menu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -43,6 +51,69 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(512, 344);
             this.panel1.TabIndex = 1;
+            // 
+            // menu
+            // 
+            this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileMenu});
+            this.menu.Location = new System.Drawing.Point(0, 0);
+            this.menu.Name = "menu";
+            this.menu.Size = new System.Drawing.Size(584, 24);
+            this.menu.TabIndex = 2;
+            this.menu.Text = "menuStrip1";
+            // 
+            // fileMenu
+            // 
+            this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileNew,
+            this.fileOpen,
+            this.fileSave,
+            this.fileSaveAs,
+            this.toolStripMenuItem1,
+            this.fileExit});
+            this.fileMenu.Name = "fileMenu";
+            this.fileMenu.Size = new System.Drawing.Size(37, 20);
+            this.fileMenu.Text = "&File";
+            // 
+            // fileNew
+            // 
+            this.fileNew.Name = "fileNew";
+            this.fileNew.Size = new System.Drawing.Size(152, 22);
+            this.fileNew.Text = "&New...";
+            this.fileNew.Click += new System.EventHandler(this.fileNew_Click);
+            // 
+            // fileOpen
+            // 
+            this.fileOpen.Name = "fileOpen";
+            this.fileOpen.Size = new System.Drawing.Size(152, 22);
+            this.fileOpen.Text = "&Open...";
+            this.fileOpen.Click += new System.EventHandler(this.fileOpen_Click);
+            // 
+            // fileSave
+            // 
+            this.fileSave.Name = "fileSave";
+            this.fileSave.Size = new System.Drawing.Size(152, 22);
+            this.fileSave.Text = "&Save";
+            this.fileSave.Click += new System.EventHandler(this.fileSave_Click);
+            // 
+            // fileSaveAs
+            // 
+            this.fileSaveAs.Name = "fileSaveAs";
+            this.fileSaveAs.Size = new System.Drawing.Size(152, 22);
+            this.fileSaveAs.Text = "Save &As...";
+            this.fileSaveAs.Click += new System.EventHandler(this.fileSaveAs_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // fileExit
+            // 
+            this.fileExit.Name = "fileExit";
+            this.fileExit.Size = new System.Drawing.Size(152, 22);
+            this.fileExit.Text = "E&xit";
+            this.fileExit.Click += new System.EventHandler(this.fileExit_Click);
             // 
             // pattern
             // 
@@ -60,14 +131,6 @@
             this.pattern.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pattern_MouseMove);
             this.pattern.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pattern_MouseDown);
             this.pattern.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pattern_MouseUp);
-            // 
-            // menu
-            // 
-            this.menu.Location = new System.Drawing.Point(0, 0);
-            this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(584, 24);
-            this.menu.TabIndex = 2;
-            this.menu.Text = "menuStrip1";
             // 
             // colorPalette1
             // 
@@ -87,7 +150,10 @@
             this.MainMenuStrip = this.menu;
             this.Name = "PatternMakerForm";
             this.Text = "PatternMaker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PatternMakerForm_FormClosing);
             this.panel1.ResumeLayout(false);
+            this.menu.ResumeLayout(false);
+            this.menu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,5 +165,12 @@
         private System.Windows.Forms.Panel panel1;
         private Pattern pattern;
         private System.Windows.Forms.MenuStrip menu;
+        private System.Windows.Forms.ToolStripMenuItem fileMenu;
+        private System.Windows.Forms.ToolStripMenuItem fileNew;
+        private System.Windows.Forms.ToolStripMenuItem fileOpen;
+        private System.Windows.Forms.ToolStripMenuItem fileSave;
+        private System.Windows.Forms.ToolStripMenuItem fileSaveAs;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fileExit;
     }
 }

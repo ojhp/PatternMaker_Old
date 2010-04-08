@@ -65,6 +65,12 @@
     <Compile Include="PatternMakerForm.Designer.cs">
       <DependentUpon>PatternMakerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SizeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SizeDialog.Designer.cs">
+      <DependentUpon>SizeDialog.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -79,6 +85,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PatternMakerForm.resx">
       <DependentUpon>PatternMakerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SizeDialog.resx">
+      <DependentUpon>SizeDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
