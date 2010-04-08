@@ -19,6 +19,9 @@ namespace PatternMaker {
             base.OnPaint(e);
 
             e.Graphics.Clear(color);
+
+            Pen borderPen = new Pen(Color.DarkGray);
+            e.Graphics.DrawRectangle(borderPen, 0, 0, Width - 1, Height - 1);
         }
 
         public Color Color {
