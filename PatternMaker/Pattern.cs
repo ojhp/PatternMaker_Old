@@ -75,6 +75,9 @@ namespace PatternMaker {
             SetStyle(ControlStyles.UserPaint, true);
         }
 
+        /// <summary>
+        /// Calculates the size for the control depending on its grid and cell sizes.
+        /// </summary>
         private void CalculateControlSize() {
             Width = width * cellWidth + width + 1;
             Height = height * cellHeight + height + 1;
@@ -105,6 +108,7 @@ namespace PatternMaker {
 
             // Paint highlight if enabled
             if(highlightEnabled) {
+                // Create brush for highlight
                 Brush highlight = new SolidBrush(highlightColor);
 
                 // Calculate bounds of highlight area
@@ -113,6 +117,7 @@ namespace PatternMaker {
                 int left = Math.Min(highlightStart.X, highlightEnd.X);
                 int right = Math.Max(highlightStart.X, highlightEnd.X);
 
+                // Color cells with highlight color
                 for(int y = top; y <= bottom; y++) {
                     for(int x = left; x <= right; x++) {
                         e.Graphics.FillRectangle(highlight,
