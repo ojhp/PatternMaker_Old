@@ -43,5 +43,13 @@ namespace PatternMaker {
                 colorDisplay.Refresh();
             }
         }
+
+        public Color MainColor {
+            get { return colorDisplay.MainColor; }
+        }
+
+        public Color SecondaryColor {
+            get { return colorDisplay.SecondaryColor; }
+        }
     }
 }

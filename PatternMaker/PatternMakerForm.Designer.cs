@@ -25,8 +25,8 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatternMakerForm));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.menu = new System.Windows.Forms.MenuStrip();
             this.pattern = new PatternMaker.Pattern();
+            this.menu = new System.Windows.Forms.MenuStrip();
             this.colorPalette1 = new PatternMaker.ColorPalette();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -44,14 +44,6 @@
             this.panel1.Size = new System.Drawing.Size(512, 344);
             this.panel1.TabIndex = 1;
             // 
-            // menu
-            // 
-            this.menu.Location = new System.Drawing.Point(0, 0);
-            this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(584, 24);
-            this.menu.TabIndex = 2;
-            this.menu.Text = "menuStrip1";
-            // 
             // pattern
             // 
             this.pattern.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -65,6 +57,17 @@
             this.pattern.Size = new System.Drawing.Size(221, 221);
             this.pattern.TabIndex = 0;
             this.pattern.Text = "pattern1";
+            this.pattern.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pattern_MouseMove);
+            this.pattern.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pattern_MouseDown);
+            this.pattern.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pattern_MouseUp);
+            // 
+            // menu
+            // 
+            this.menu.Location = new System.Drawing.Point(0, 0);
+            this.menu.Name = "menu";
+            this.menu.Size = new System.Drawing.Size(584, 24);
+            this.menu.TabIndex = 2;
+            this.menu.Text = "menuStrip1";
             // 
             // colorPalette1
             // 
