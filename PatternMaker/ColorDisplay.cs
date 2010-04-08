@@ -14,6 +14,9 @@ namespace PatternMaker {
             this.secondary = secondary;
 
             Size = new Size(50, 50);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.UserPaint, true);
         }
 
         protected override void OnPaint(PaintEventArgs e) {
